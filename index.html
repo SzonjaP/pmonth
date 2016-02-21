@@ -1,0 +1,45 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment-with-locales.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sprintf/1.0.3/sprintf.min.js"></script>
+</head>
+<body>
+	<div class="container page-header">
+		<h1>Milyen hónap van a játékban?</h1>
+
+		<p class="lead">
+			Ma <strong id='realdate'></strong> van, a játékban <strong id='gamedate'></strong>: nagyjából <strong id="monthname"></strong> van.
+		</p>
+	</div>
+
+	<script type="text/javascript">
+		var monthQualif = function(val) {
+			if(val < 0.3) return " eleje";
+			if(val > 0.7) return " vége";
+			return " közepe";
+		};
+
+		moment.locale('hu');
+
+		var dayOne = moment("2003-01-01");
+
+		var days = moment().diff(dayOne, 'days');
+		var cYear = Math.floor(days / 56);
+		var cDay = days % 56;
+
+		$("#realdate").text(moment().format("YYYY. MMMM D."));
+		$("#gamedate").text(sprintf("a %d. év %d. napja", cYear+1, cDay+1));
+
+		var cMonth = cDay / 55 * 12;
+		var rQulaifier = monthQualif(cMonth - Math.floor(cMonth));
+		var rMonthName = moment().month(Math.floor(cMonth)).format('MMMM');
+		$("#monthname").text(sprintf("%s%s", rMonthName, rQulaifier));
+	</script>
+</body>
+</html>
