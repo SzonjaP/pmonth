@@ -36,7 +36,7 @@
 		$("#realdate").text(moment().format("YYYY. MMMM D."));
 		$("#gamedate").text(sprintf("a %d. év %d. napja", cYear+1, cDay+1));
 
-		var cMonth = cDay / 55 * 12;
+		var cMonth = cDay / 56 * 12;
 		var rQulaifier = monthQualif(cMonth - Math.floor(cMonth));
 		var rMonthName = moment().month(Math.floor(cMonth)).format('MMMM');
 		$("#monthname").text(sprintf("%s%s", rMonthName, rQulaifier));
